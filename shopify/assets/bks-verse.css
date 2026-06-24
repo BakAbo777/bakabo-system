@@ -1,0 +1,354 @@
+/* BKS VERSE — Styles v1
+   Dipende da: bks-member.css (variabili tier)
+   Font: GFS Didot (già caricato in TM04)
+*/
+
+/* ── VARIABLES ────────────────────────────────────────────────────────────── */
+:root {
+  --verse-bg:        #080604;
+  --verse-gold:      #ffd700;
+  --verse-gold-dim:  #c8942a;
+  --verse-text:      #faf8f5;
+  --verse-muted:     #c9b79c;
+  --verse-border:    rgba(255,215,0,.18);
+  --verse-gate:      #1a1510;
+  --verse-font:      'GFS Didot', Georgia, serif;
+}
+
+/* ── SUBMIT FORM ──────────────────────────────────────────────────────────── */
+.bks-verse-section {
+  background: var(--verse-bg);
+  padding: 64px 24px;
+  font-family: var(--verse-font);
+}
+
+.bks-verse-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.bks-verse-header h2 {
+  color: var(--verse-gold);
+  font-size: clamp(22px, 4vw, 36px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 0 0 8px;
+}
+.bks-verse-header p {
+  color: var(--verse-muted);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.bks-verse-form {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.bks-verse-textarea {
+  width: 100%;
+  min-height: 160px;
+  background: var(--verse-gate);
+  border: 1px solid var(--verse-border);
+  color: var(--verse-text);
+  font-family: var(--verse-font);
+  font-size: 16px;
+  line-height: 1.7;
+  padding: 20px;
+  resize: vertical;
+  outline: none;
+  transition: border-color .3s;
+  box-sizing: border-box;
+}
+.bks-verse-textarea:focus {
+  border-color: var(--verse-gold-dim);
+}
+.bks-verse-textarea::placeholder {
+  color: var(--verse-muted);
+  opacity: .5;
+  font-style: italic;
+}
+
+.bks-verse-counter {
+  text-align: right;
+  color: var(--verse-muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin: 6px 0 20px;
+}
+.bks-verse-counter.over { color: #ff6b6b; }
+.bks-verse-counter.ready { color: var(--verse-gold); }
+
+.bks-verse-collection-select {
+  width: 100%;
+  background: var(--verse-gate);
+  border: 1px solid var(--verse-border);
+  color: var(--verse-text);
+  padding: 12px 16px;
+  font-family: var(--verse-font);
+  font-size: 13px;
+  margin-bottom: 20px;
+  outline: none;
+  letter-spacing: 1px;
+}
+
+.bks-verse-submit-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: 1px solid var(--verse-gold);
+  color: var(--verse-gold);
+  font-family: var(--verse-font);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .3s, color .3s;
+}
+.bks-verse-submit-btn:hover {
+  background: var(--verse-gold);
+  color: var(--verse-bg);
+}
+.bks-verse-submit-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.bks-verse-axes-legend {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin: 32px 0 0;
+  text-align: center;
+}
+.bks-verse-axis {
+  border: 1px solid var(--verse-border);
+  padding: 10px 4px;
+}
+.bks-verse-axis-name {
+  color: var(--verse-gold-dim);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.bks-verse-axis-desc {
+  color: var(--verse-muted);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+/* ── BRASS GATE (member non qualificato) ─────────────────────────────────── */
+.bks-verse-gate-msg {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 40px;
+  border: 1px solid var(--verse-border);
+}
+.bks-verse-gate-msg h3 {
+  color: var(--verse-gold);
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 400;
+  margin: 0 0 12px;
+}
+.bks-verse-gate-msg p {
+  color: var(--verse-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* ── RESULT CARD ──────────────────────────────────────────────────────────── */
+.bks-verse-result {
+  max-width: 640px;
+  margin: 32px auto 0;
+  border: 1px solid var(--verse-border);
+  padding: 32px;
+  display: none;
+}
+.bks-verse-result.visible { display: block; }
+
+.bks-verse-score-total {
+  font-size: 48px;
+  color: var(--verse-gold);
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin: 0 0 4px;
+}
+.bks-verse-verdict {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.bks-verse-verdict.approved { color: var(--verse-gold); }
+.bks-verse-verdict.rejected { color: var(--verse-muted); }
+.bks-verse-verdict.hall     { color: #fff8d0; }
+
+.bks-verse-axes-result {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.bks-verse-axis-result {
+  text-align: center;
+  padding: 8px 2px;
+  border: 1px solid var(--verse-border);
+}
+.bks-verse-axis-result-name  { color: var(--verse-muted); font-size: 9px; letter-spacing: 1px; }
+.bks-verse-axis-result-score { color: var(--verse-gold); font-size: 22px; }
+
+.bks-verse-message {
+  color: var(--verse-text);
+  font-size: 14px;
+  line-height: 1.8;
+  font-style: italic;
+  border-left: 2px solid var(--verse-gold-dim);
+  padding-left: 16px;
+}
+
+/* ── LINEAGE CARD ─────────────────────────────────────────────────────────── */
+.bks-lineage-card {
+  max-width: 640px;
+  margin: 24px auto 0;
+  padding: 24px;
+  border: 1px solid var(--verse-gold-dim);
+  background: #0a0806;
+}
+.bks-lineage-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.bks-lineage-poet-name {
+  color: var(--verse-gold);
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.bks-lineage-poet-era {
+  color: var(--verse-muted);
+  font-size: 11px;
+}
+.bks-lineage-poem-excerpt {
+  color: var(--verse-text);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.8;
+  border-left: 2px solid var(--verse-gold-dim);
+  padding-left: 16px;
+  margin: 12px 0;
+}
+.bks-lineage-arrow {
+  text-align: center;
+  color: var(--verse-gold-dim);
+  font-size: 20px;
+  margin: 12px 0;
+}
+.bks-lineage-member-poem {
+  color: var(--verse-text);
+  font-size: 15px;
+  line-height: 1.8;
+  padding-left: 16px;
+  border-left: 2px solid var(--verse-muted);
+}
+.bks-lineage-note {
+  margin-top: 16px;
+  color: var(--verse-muted);
+  font-size: 12px;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* ── LEADERBOARD ──────────────────────────────────────────────────────────── */
+.bks-verse-leaderboard {
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: var(--verse-font);
+}
+.bks-verse-leaderboard-row {
+  display: grid;
+  grid-template-columns: 36px 1fr 80px 200px;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--verse-border);
+  transition: background .2s;
+}
+.bks-verse-leaderboard-row:hover { background: rgba(255,215,0,.04); }
+.bks-verse-leaderboard-row.member-row { background: rgba(255,215,0,.07); }
+.bks-verse-leaderboard-row.hall-row {
+  background: rgba(255,215,0,.12);
+  border-color: var(--verse-gold-dim);
+}
+
+.bks-lb-rank { color: var(--verse-muted); font-size: 13px; text-align: right; }
+.bks-lb-name { color: var(--verse-text); font-size: 14px; }
+.bks-lb-name small { color: var(--verse-muted); font-size: 11px; display: block; }
+.bks-lb-score { color: var(--verse-gold); font-size: 20px; text-align: center; }
+.bks-lb-axes {
+  display: flex;
+  gap: 4px;
+}
+.bks-lb-axis-pip {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--verse-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--verse-muted);
+}
+.bks-lb-axis-pip.pip-5 { color: var(--verse-gold); border-color: var(--verse-gold-dim); }
+
+/* ── HALL OF FAME ─────────────────────────────────────────────────────────── */
+.bks-verse-hall {
+  text-align: center;
+  padding: 80px 24px;
+}
+.bks-hall-title {
+  color: var(--verse-gold);
+  font-size: clamp(28px, 5vw, 52px);
+  letter-spacing: 8px;
+  font-weight: 400;
+  margin: 0 0 8px;
+}
+.bks-hall-subtitle {
+  color: var(--verse-muted);
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-bottom: 64px;
+}
+.bks-hall-entry {
+  max-width: 560px;
+  margin: 0 auto 48px;
+  border: 1px solid var(--verse-gold);
+  padding: 32px;
+}
+.bks-hall-entry-poem {
+  font-size: 18px;
+  line-height: 1.9;
+  color: var(--verse-text);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.bks-hall-entry-meta {
+  color: var(--verse-gold-dim);
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .bks-verse-axes-legend,
+  .bks-verse-axes-result { grid-template-columns: repeat(3, 1fr); }
+  .bks-verse-leaderboard-row { grid-template-columns: 28px 1fr 60px; }
+  .bks-lb-axes { display: none; }
+}

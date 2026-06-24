@@ -1,0 +1,32 @@
+{% comment %}
+  BKS Verse — Global Leaderboard (poeti storici + members)
+  Dati caricati via JS da /leaderboard/global
+{% endcomment %}
+
+<section class="bks-verse-section" id="bks-verse-lb-section">
+  <div class="bks-verse-header">
+    <h2>{{ section.settings.title | default: 'Classifica Mondiale' }}</h2>
+    <p>{{ section.settings.subtitle | default: 'Stessa rubrica per tutti — da Saffo al 2026.' }}</p>
+  </div>
+
+  <div class="bks-verse-leaderboard" id="bks-verse-leaderboard">
+    <p style="color:var(--verse-muted);text-align:center;">Caricamento...</p>
+  </div>
+
+  <p style="text-align:center;color:var(--verse-muted);font-size:11px;letter-spacing:1px;margin-top:32px;">
+    I = Image · V = Voice · T = Tension · B = BKS Resonance · W = Body (wearable)
+  </p>
+</section>
+
+{% schema %}
+{
+  "name": "BKS Verse Leaderboard",
+  "tag": "section",
+  "settings": [
+    {"type": "text", "id": "title",    "label": "Titolo",     "default": "Classifica Mondiale"},
+    {"type": "text", "id": "subtitle", "label": "Sottotitolo","default": "Stessa rubrica per tutti — da Saffo al 2026."},
+    {"type": "text", "id": "api_url",  "label": "API URL",    "default": "https://verse.bakabo.club"}
+  ],
+  "presets": [{"name": "BKS Verse Leaderboard"}]
+}
+{% endschema %}

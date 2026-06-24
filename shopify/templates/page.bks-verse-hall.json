@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "bks-verse-hall": {
+      "type": "bks-verse-hall",
+      "settings": {
+        "api_url": "https://verse.bakabo.club"
+      }
+    }
+  },
+  "order": ["bks-verse-hall"]
+}

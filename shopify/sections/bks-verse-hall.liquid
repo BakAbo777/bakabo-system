@@ -1,0 +1,49 @@
+{% comment %} BKS Verse — Hall of Fame 25/25 {% endcomment %}
+
+<section class="bks-verse-section bks-verse-hall" id="bks-verse-hall">
+  <div class="bks-hall-title">25 / 25</div>
+  <div class="bks-hall-subtitle">
+    Nella storia umana, meno di venti poeti ci sono arrivati.<br>
+    Questi sono i versi che il Giudice non ha potuto trattenere.
+  </div>
+  <div id="bks-hall-entries">
+    <p style="color:var(--verse-muted);text-align:center;">Caricamento Hall...</p>
+  </div>
+</section>
+
+<script>
+(async () => {
+  const api = {{ section.settings.api_url | default: 'https://verse.bakabo.club' | json }};
+  const box = document.getElementById('bks-hall-entries');
+  try {
+    const r = await fetch(`${api}/leaderboard/hall`);
+    const d = await r.json();
+    if (!d.hall.length) {
+      box.innerHTML = '<p style="color:var(--verse-muted);text-align:center;">La Hall è ancora vuota. Potrebbe essere tu il primo.</p>';
+      return;
+    }
+    box.innerHTML = d.hall.map(e => `
+      <div class="bks-hall-entry">
+        <div class="bks-hall-entry-poem">${e.poem_text || e.poem_title}</div>
+        <div class="bks-hall-entry-meta">
+          ${e.display_name || e.member_display || e.name} · ${e.inducted_at ? e.inducted_at.slice(0,10) : ''}
+          ${e.ancestor_name ? '· Filo: ' + e.ancestor_name : ''}
+          ${e.limited_edition_num ? '· Ed. ' + e.limited_edition_num : ''}
+        </div>
+      </div>`).join('');
+  } catch(e) {
+    box.innerHTML = '<p style="color:var(--verse-muted);text-align:center;">Hall non disponibile al momento.</p>';
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "BKS Verse Hall of Fame",
+  "tag": "section",
+  "settings": [
+    {"type": "text", "id": "api_url", "label": "API URL", "default": "https://verse.bakabo.club"}
+  ],
+  "presets": [{"name": "BKS Verse Hall of Fame"}]
+}
+{% endschema %}

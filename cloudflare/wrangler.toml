@@ -1,0 +1,14 @@
+name            = "bks-verse-worker"
+main            = "worker.js"
+compatibility_date = "2024-09-01"
+
+[vars]
+VERSE_ORIGIN = "http://verse-api.bakabo.club:8001"
+
+[[kv_namespaces]]
+binding  = "VERSE_KV"
+id       = "524fdfb340ec4556b6573bb9d2b38dae"
+
+[[routes]]
+pattern = "verse.bakabo.club/*"
+zone_id = "208ac3be890d662b66337fdb30d8cbf2"

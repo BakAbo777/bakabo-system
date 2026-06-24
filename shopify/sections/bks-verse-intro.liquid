@@ -1,0 +1,431 @@
+{% comment %}
+  BKS Verse — Intro Hero
+  Prima sezione della pagina verse. Nessun gate — visibile a tutti.
+  Stile: cinema dark · BKS DNA · GFS Didot · no colori esterni al sistema.
+{% endcomment %}
+
+{%- assign headline_1 = section.settings.headline_1 | default: "Words" -%}
+{%- assign headline_2 = section.settings.headline_2 | default: "that" -%}
+{%- assign headline_3 = section.settings.headline_3 | default: "wear." -%}
+{%- assign body_copy  = section.settings.body_copy  | default: "Scrivi un verso. Viene valutato su 5 criteri poetici.\nSe raggiunge il punteggio, diventa un capo BKS.\nLo hai scritto tu. Lo indossa il mondo." -%}
+{%- assign cta_submit_label = section.settings.cta_submit_label | default: "Invia un verso" -%}
+{%- assign cta_drops_label  = section.settings.cta_drops_label  | default: "Esplora i drop" -%}
+{%- assign cta_drops_url    = section.settings.cta_drops_url    | default: "/collections/bks-verse" -%}
+
+{%- liquid
+  assign customer_tier = ''
+  assign is_eligible = false
+  if customer
+    assign customer_tier = customer.metafields.bks.member_tier.value | default: 'none'
+    if customer_tier == 'brass' or customer_tier == 'silver' or customer_tier == 'gold'
+      assign is_eligible = true
+    endif
+  endif
+-%}
+
+<section class="bks-vi" id="bks-verse-intro"
+  data-eligible="{{ is_eligible }}"
+  data-tier="{{ customer_tier }}">
+
+  <div class="bks-vi__inner">
+
+    {%- comment %} ── EYEBROW ── {%- endcomment %}
+    <div class="bks-vi__eyebrow">
+      <span class="bks-vi__eyebrow-label">BKS Verse</span>
+      <span class="bks-vi__eyebrow-rule"></span>
+      <span class="bks-vi__eyebrow-sub">Dalla Poesia all'Oggetto</span>
+    </div>
+
+    {%- comment %} ── HEADLINE ── {%- endcomment %}
+    <div class="bks-vi__headline-wrap">
+      <h1 class="bks-vi__headline">
+        <span class="bks-vi__hl bks-vi__hl--1">{{ headline_1 }}</span>
+        <span class="bks-vi__hl bks-vi__hl--2">{{ headline_2 }}</span>
+        <span class="bks-vi__hl bks-vi__hl--3 bks-vi__hl--accent">{{ headline_3 }}</span>
+      </h1>
+    </div>
+
+    {%- comment %} ── RULE ── {%- endcomment %}
+    <div class="bks-vi__rule-wrap">
+      <hr class="bks-vi__rule">
+    </div>
+
+    {%- comment %} ── BODY ── {%- endcomment %}
+    <div class="bks-vi__body-wrap">
+      <p class="bks-vi__body">{{ body_copy | newline_to_br }}</p>
+    </div>
+
+    {%- comment %} ── CTA ── {%- endcomment %}
+    <div class="bks-vi__ctas">
+      {%- if is_eligible -%}
+        <a href="#bks-verse-submit" class="bks-vi__cta bks-vi__cta--primary">
+          {{ cta_submit_label }}
+        </a>
+      {%- elsif customer -%}
+        <a href="/pages/bks-members" class="bks-vi__cta bks-vi__cta--primary">
+          Upgrade a Brass →
+        </a>
+      {%- else -%}
+        <a href="/account/login" class="bks-vi__cta bks-vi__cta--primary">
+          Accedi per scrivere
+        </a>
+      {%- endif -%}
+      <a href="{{ cta_drops_url }}" class="bks-vi__cta bks-vi__cta--ghost">
+        {{ cta_drops_label }}
+      </a>
+    </div>
+
+    {%- comment %} ── STATS STRIP ── {%- endcomment %}
+    <div class="bks-vi__stats">
+      <div class="bks-vi__stat">
+        <span class="bks-vi__stat-num">1/25</span>
+        <span class="bks-vi__stat-lbl">standard approvazione</span>
+      </div>
+      <div class="bks-vi__stat-div"></div>
+      <div class="bks-vi__stat">
+        <span class="bks-vi__stat-num">5</span>
+        <span class="bks-vi__stat-lbl">assi del Gran Giudice</span>
+      </div>
+      <div class="bks-vi__stat-div"></div>
+      <div class="bks-vi__stat">
+        <span class="bks-vi__stat-num">21</span>
+        <span class="bks-vi__stat-lbl">poeti nell'archivio</span>
+      </div>
+      <div class="bks-vi__stat-div"></div>
+      <div class="bks-vi__stat">
+        <span class="bks-vi__stat-num">Brass+</span>
+        <span class="bks-vi__stat-lbl">per inviare un verso</span>
+      </div>
+    </div>
+
+    {%- comment %} ── MANIFESTO BREVE ── {%- endcomment %}
+    {%- if section.settings.show_manifesto -%}
+    <blockquote class="bks-vi__manifesto">
+      <p>{{ section.settings.manifesto_text | default: "Chi scrive non pensa al prodotto.<br>Pensa solo a scrivere bene.<br>La poesia si difende da sola — o trova la sua forma nell'oggetto, o resta solo un verso." | newline_to_br }}</p>
+      <cite>— BKS Verse</cite>
+    </blockquote>
+    {%- endif -%}
+
+  </div>
+
+</section>
+
+<style>
+/* ── BKS VERSE INTRO ──────────────────────────────────────────────────────── */
+.bks-vi {
+  background: #080604;
+  color: #faf8f5;
+  padding: clamp(64px, 10vw, 120px) clamp(20px, 6vw, 80px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grain texture overlay */
+.bks-vi::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bks-vi__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* ── Eyebrow ── */
+.bks-vi__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: clamp(28px, 4vw, 52px);
+}
+.bks-vi__eyebrow-label {
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  color: #c9b79c;
+}
+.bks-vi__eyebrow-rule {
+  flex: 0 0 40px;
+  height: 1px;
+  background: rgba(201,183,156,0.35);
+}
+.bks-vi__eyebrow-sub {
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(201,183,156,0.55);
+}
+
+/* ── Headline ── */
+.bks-vi__headline {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 0.88;
+}
+.bks-vi__hl {
+  display: block;
+  font-family: 'GFS Didot', 'Playfair Display', Georgia, serif;
+  font-size: clamp(72px, 13vw, 180px);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: #faf8f5;
+}
+.bks-vi__hl--accent {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(201,183,156,0.70);
+}
+
+/* ── Rule ── */
+.bks-vi__rule-wrap {
+  margin: clamp(24px, 4vw, 44px) 0 clamp(20px, 3vw, 36px);
+}
+.bks-vi__rule {
+  border: none;
+  border-top: 0.5px solid rgba(201,183,156,0.25);
+  margin: 0;
+}
+
+/* ── Body ── */
+.bks-vi__body {
+  font-family: var(--bks-font-body, 'DM Sans', sans-serif);
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.70;
+  color: rgba(250,248,245,0.72);
+  max-width: 560px;
+  margin: 0 0 clamp(28px, 4vw, 44px);
+  font-weight: 300;
+}
+
+/* ── CTAs ── */
+.bks-vi__ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(44px, 8vw, 80px);
+}
+.bks-vi__cta {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 2px;
+  transition: background 0.22s, color 0.22s, border-color 0.22s, transform 0.18s;
+}
+.bks-vi__cta--primary {
+  background: #c9b79c;
+  color: #080604;
+  border: 1px solid #c9b79c;
+}
+.bks-vi__cta--primary:hover {
+  background: #faf8f5;
+  border-color: #faf8f5;
+  transform: translateY(-2px);
+}
+.bks-vi__cta--ghost {
+  background: transparent;
+  color: rgba(250,248,245,0.65);
+  border: 0.5px solid rgba(250,248,245,0.22);
+}
+.bks-vi__cta--ghost:hover {
+  border-color: rgba(201,183,156,0.60);
+  color: #c9b79c;
+  transform: translateY(-2px);
+}
+
+/* ── Stats strip ── */
+.bks-vi__stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-top: 0.5px solid rgba(201,183,156,0.18);
+  border-bottom: 0.5px solid rgba(201,183,156,0.18);
+  padding: 20px 0;
+  flex-wrap: wrap;
+}
+.bks-vi__stat {
+  flex: 1 1 140px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.bks-vi__stat:first-child { padding-left: 0; }
+.bks-vi__stat-num {
+  font-family: 'GFS Didot', Georgia, serif;
+  font-size: clamp(22px, 3vw, 32px);
+  font-style: italic;
+  color: #c9b79c;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.bks-vi__stat-lbl {
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(250,248,245,0.38);
+}
+.bks-vi__stat-div {
+  width: 0.5px;
+  height: 36px;
+  background: rgba(201,183,156,0.20);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ── Manifesto ── */
+.bks-vi__manifesto {
+  margin: clamp(40px, 6vw, 72px) 0 0;
+  padding-left: 24px;
+  border-left: 1.5px solid rgba(201,183,156,0.35);
+}
+.bks-vi__manifesto p {
+  font-family: 'GFS Didot', Georgia, serif;
+  font-size: clamp(14px, 1.5vw, 17px);
+  font-style: italic;
+  line-height: 1.80;
+  color: rgba(250,248,245,0.60);
+  margin: 0 0 10px;
+}
+.bks-vi__manifesto cite {
+  font-family: var(--bks-font-mono, 'DM Mono', monospace);
+  font-size: 9px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: rgba(201,183,156,0.45);
+  font-style: normal;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .bks-vi__hl { font-size: clamp(56px, 18vw, 72px); }
+  .bks-vi__stat { flex: 1 1 40%; padding: 8px 0; }
+  .bks-vi__stat-div { display: none; }
+  .bks-vi__stats { gap: 8px; }
+  .bks-vi__ctas { flex-direction: column; }
+  .bks-vi__cta { justify-content: center; text-align: center; }
+}
+
+/* ── Animation ── */
+@media (prefers-reduced-motion: no-preference) {
+  .bks-vi__eyebrow,
+  .bks-vi__hl,
+  .bks-vi__body,
+  .bks-vi__ctas,
+  .bks-vi__stats {
+    animation: bks-vi-rise 0.72s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  .bks-vi__hl--1 { animation-delay: 0.0s; }
+  .bks-vi__hl--2 { animation-delay: 0.06s; }
+  .bks-vi__hl--3 { animation-delay: 0.12s; }
+  .bks-vi__body  { animation-delay: 0.18s; }
+  .bks-vi__ctas  { animation-delay: 0.22s; }
+  .bks-vi__stats { animation-delay: 0.28s; }
+  @keyframes bks-vi-rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "BKS Verse — Intro",
+  "tag": "section",
+  "class": "bks-verse-intro-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "headline_1",
+      "label": "Riga 1",
+      "default": "Words"
+    },
+    {
+      "type": "text",
+      "id": "headline_2",
+      "label": "Riga 2",
+      "default": "that"
+    },
+    {
+      "type": "text",
+      "id": "headline_3",
+      "label": "Riga 3 (outline)",
+      "default": "wear."
+    },
+    {
+      "type": "header",
+      "content": "Corpo"
+    },
+    {
+      "type": "textarea",
+      "id": "body_copy",
+      "label": "Testo corpo",
+      "default": "Scrivi un verso. Viene valutato su 5 criteri poetici.\nSe raggiunge il punteggio, diventa un capo BKS.\nLo hai scritto tu. Lo indossa il mondo."
+    },
+    {
+      "type": "header",
+      "content": "CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_submit_label",
+      "label": "CTA principale",
+      "default": "Invia un verso"
+    },
+    {
+      "type": "text",
+      "id": "cta_drops_label",
+      "label": "CTA secondaria",
+      "default": "Esplora i drop"
+    },
+    {
+      "type": "url",
+      "id": "cta_drops_url",
+      "label": "URL drop"
+    },
+    {
+      "type": "header",
+      "content": "Manifesto"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_manifesto",
+      "label": "Mostra citazione del Giudice",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "manifesto_text",
+      "label": "Testo manifesto",
+      "default": "Chi sottomette una poesia non pensa al prodotto.\nPensa solo a scrivere bene.\nIl Giudice conosce tutta la poesia mondiale. Lui decide quanto vale."
+    }
+  ],
+  "presets": [
+    {
+      "name": "BKS Verse — Intro"
+    }
+  ]
+}
+{% endschema %}

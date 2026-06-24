@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "bks-verse-intro": {
+      "type": "bks-verse-intro",
+      "settings": {
+        "body_copy": "Scrivi un verso. Viene valutato su 5 criteri poetici.\nSe raggiunge il punteggio, diventa un capo BKS.\nLo hai scritto tu. Lo indossa il mondo.",
+        "show_manifesto": true,
+        "manifesto_text": "Chi scrive non pensa al prodotto.\nPensa solo a scrivere bene.\nLa poesia si difende da sola — o trova la sua forma nell'oggetto, o resta solo un verso."
+      }
+    },
+    "bks-verse-submit": {
+      "type": "bks-verse-submit",
+      "settings": {
+        "title": "Dalla Poesia all'Oggetto",
+        "subtitle": "Scrivi. Il tuo verso viene valutato. Se supera il punteggio, diventa un capo BKS.",
+        "btn_label": "Invia",
+        "show_axes_legend": true,
+        "api_url": "https://verse.bakabo.club"
+      }
+    },
+    "bks-verse-leaderboard": {
+      "type": "bks-verse-leaderboard",
+      "settings": {
+        "title": "Classifica Mondiale",
+        "subtitle": "Stessa rubrica per tutti — da Saffo al 2026.",
+        "api_url": "https://verse.bakabo.club"
+      }
+    }
+  },
+  "order": ["bks-verse-intro", "bks-verse-submit", "bks-verse-leaderboard"]
+}

@@ -1,0 +1,33 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Environment
+.env
+*.env.local
+
+# Data / DB (non versionare dati sensibili)
+data/*.db
+data/*.sqlite
+
+# Logs
+*.log
+/tmp/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp
+*.b64
+
+# Sensitive
+.env.env.bak
+*.env.bak
+cloudflare/.wrangler/

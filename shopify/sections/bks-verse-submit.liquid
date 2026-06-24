@@ -1,0 +1,122 @@
+{% comment %}
+  BKS Verse — Submit Section
+  Gated: Brass+ member only
+  API: window.BKS_VERSE_API_URL (configurato via config section o metafield)
+{% endcomment %}
+
+<section class="bks-verse-section" id="bks-verse-submit">
+
+  <div class="bks-verse-header">
+    <h2>{{ section.settings.title | default: "Dalla Poesia all'Oggetto" }}</h2>
+    <p>{{ section.settings.subtitle | default: 'Scrivi. Il Giudice valuta. Il verso diventa capo BKS.' }}</p>
+  </div>
+
+  {%- liquid
+    assign customer_tier = customer.metafields.bks.member_tier.value | default: 'none'
+    assign is_eligible = false
+    if customer_tier == 'brass' or customer_tier == 'silver' or customer_tier == 'gold'
+      assign is_eligible = true
+    endif
+  -%}
+
+  {% if customer == null %}
+    <div class="bks-verse-gate-msg">
+      <h3>Accesso Members</h3>
+      <p>BKS Verse è riservato ai members Brass e superiori.<br>
+        <a href="/account/login" style="color:var(--verse-gold);">Accedi al tuo account →</a>
+      </p>
+    </div>
+
+  {% elsif is_eligible == false %}
+    <div class="bks-verse-gate-msg">
+      <h3>Richiesto tier Brass</h3>
+      <p>Completa il tuo terzo ordine BKS per sbloccare l'accesso a Verse.<br>
+        La poesia richiede impegno — anche prima di scriverla.
+      </p>
+    </div>
+
+  {% else %}
+    {%- comment %} Form attivo per member qualificato {%- endcomment %}
+    <form class="bks-verse-form" id="bks-verse-form" novalidate>
+
+      <select class="bks-verse-collection-select" id="bks-verse-collection">
+        <option value="">— Collezione ispiratrice (opzionale) —</option>
+        <option value="bks-hours">BKS Hours</option>
+        <option value="bks-glyph">BKS Glyph</option>
+        <option value="bks-marker">BKS Marker</option>
+        <option value="bks-riviera">BKS Riviera</option>
+        <option value="bks-pulse">BKS Pulse</option>
+        <option value="bks-token">BKS Token</option>
+        <option value="bks-flag">BKS Flag</option>
+        <option value="bks-origin">BKS Origin</option>
+      </select>
+
+      <textarea
+        class="bks-verse-textarea"
+        id="bks-verse-text"
+        placeholder="{{ section.settings.placeholder | default: 'Scrivi il tuo verso. Da 80 a 280 caratteri.' }}"
+        maxlength="280"
+        required
+      ></textarea>
+      <div class="bks-verse-counter" id="bks-verse-counter">0 / 280</div>
+
+      <button type="submit" class="bks-verse-submit-btn" id="bks-verse-submit" disabled>
+        {{ section.settings.btn_label | default: 'Invia' }}
+      </button>
+    </form>
+
+    {%- comment %} Legenda assi {%- endcomment %}
+    {% if section.settings.show_axes_legend %}
+    <div class="bks-verse-axes-legend" style="max-width:640px;margin:32px auto 0;">
+      <div class="bks-verse-axis">
+        <span class="bks-verse-axis-name">Image</span>
+        <span class="bks-verse-axis-desc">L'immagine centrale è indimenticabile?</span>
+      </div>
+      <div class="bks-verse-axis">
+        <span class="bks-verse-axis-name">Voice</span>
+        <span class="bks-verse-axis-desc">La voce è inconfondibile?</span>
+      </div>
+      <div class="bks-verse-axis">
+        <span class="bks-verse-axis-name">Tension</span>
+        <span class="bks-verse-axis-desc">Il verso è sul punto di spezzarsi?</span>
+      </div>
+      <div class="bks-verse-axis">
+        <span class="bks-verse-axis-name">BKS</span>
+        <span class="bks-verse-axis-desc">Potrebbe essere il manifesto di una collezione?</span>
+      </div>
+      <div class="bks-verse-axis">
+        <span class="bks-verse-axis-name">Body</span>
+        <span class="bks-verse-axis-desc">Può diventare un tessuto?</span>
+      </div>
+    </div>
+    {% endif %}
+
+    {%- comment %} Result + Lineage (iniettati da JS) {%- endcomment %}
+    <div id="bks-verse-result" class="bks-verse-result"></div>
+    <div id="bks-verse-lineage"></div>
+  {% endif %}
+
+</section>
+
+<script>
+  window.BKS_VERSE_API_URL  = {{ section.settings.api_url | default: 'https://verse.bakabo.club' | json }};
+  window.BKS_MEMBER_EMAIL   = {{ customer.email | json }};
+  window.BKS_MEMBER_ID      = {{ customer.id | json }};
+  window.BKS_MEMBER_DISPLAY = {{ customer.first_name | json }};
+</script>
+
+{% schema %}
+{
+  "name": "BKS Verse Submit",
+  "tag": "section",
+  "settings": [
+    {"type": "text",     "id": "title",            "label": "Titolo",         "default": "Dalla Poesia all'Oggetto"},
+    {"type": "text",     "id": "subtitle",          "label": "Sottotitolo",    "default": "Scrivi. Il Giudice valuta. Il verso diventa capo BKS."},
+    {"type": "text",     "id": "placeholder",       "label": "Placeholder textarea"},
+    {"type": "text",     "id": "btn_label",         "label": "Label bottone",  "default": "Presenta al Giudice"},
+    {"type": "text",     "id": "api_url",           "label": "Verse API URL",  "default": "https://verse.bakabo.club"},
+    {"type": "checkbox", "id": "show_axes_legend",  "label": "Mostra legenda assi", "default": true}
+  ],
+  "presets": [{"name": "BKS Verse Submit"}]
+}
+{% endschema %}
